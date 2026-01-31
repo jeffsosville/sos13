@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sos13 | Transaction Partners & Resources</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #0f1c3f;
+            --navy-light: #1a2d5a;
+            --slate: #64748b;
+            --silver: #e2e8f0;
+            --off-white: #f8fafc;
+            --white: #ffffff;
+            --accent: #2563eb;
+            --text-dark: #1e293b;
+            --green: #059669;
+            --amber: #d97706;
+            --purple: #7c3aed;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--white);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.25rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--silver);
+        }
+
+        .logo {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--navy);
+            text-decoration: none;
+            letter-spacing: -0.03em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--slate);
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--navy);
+        }
+
+        .nav-cta {
+            background: var(--navy);
+            color: var(--white);
+            padding: 0.7rem 1.5rem;
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .nav-cta:hover {
+            background: var(--navy-light);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .mobile-menu-btn span {
+            width: 24px;
+            height: 2px;
+            background: var(--navy);
+        }
+
+        /* Hero */
+        .hero {
+            padding: 10rem 4rem 5rem;
+            text-align: center;
+            background: var(--white);
+        }
+
+        .hero-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(2.25rem, 4vw, 3rem);
+            font-weight: 700;
+            line-height: 1.15;
+            color: var(--navy);
+            margin-bottom: 1.25rem;
+            letter-spacing: -0.03em;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--slate);
+            line-height: 1.8;
+            max-width: 550px;
+            margin: 0 auto;
+        }
+
+        /* Stage Navigation */
+        .stage-nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            padding: 2rem 4rem;
+            background: var(--off-white);
+            border-top: 1px solid var(--silver);
+            border-bottom: 1px solid var(--silver);
+            flex-wrap: wrap;
+        }
+
+        .stage-btn {
+            padding: 0.75rem 1.5rem;
+            background: var(--white);
+            border: 1px solid var(--silver);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--slate);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .stage-btn:hover, .stage-btn.active {
+            border-color: var(--navy);
+            color: var(--navy);
+        }
+
+        .stage-btn.pre { border-left: 3px solid var(--green); }
+        .stage-btn.during { border-left: 3px solid var(--amber); }
+        .stage-btn.post { border-left: 3px solid var(--purple); }
+
+        /* Sections */
+        section {
+            padding: 5rem 4rem;
+        }
+
+        .section-header {
+            max-width: 600px;
+            margin-bottom: 3rem;
+        }
+
+        .section-tag {
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 0.75rem;
+        }
+
+        .section-tag.pre { color: var(--green); }
+        .section-tag.during { color: var(--amber); }
+        .section-tag.post { color: var(--purple); }
+
+        .section-header h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(1.75rem, 3vw, 2.25rem);
+            font-weight: 600;
+            color: var(--navy);
+            letter-spacing: -0.02em;
+        }
+
+        .section-header p {
+            font-size: 1rem;
+            color: var(--slate);
+            margin-top: 0.75rem;
+        }
+
+        /* Partner Grid */
+        .partner-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            max-width: 1100px;
+        }
+
+        .partner-card {
+            padding: 2rem;
+            background: var(--white);
+            border: 1px solid var(--silver);
+            transition: all 0.3s ease;
+        }
+
+        .partner-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(15, 28, 63, 0.08);
+        }
+
+        .partner-category {
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--slate);
+            margin-bottom: 0.5rem;
+        }
+
+        .partner-card h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .partner-card p {
+            font-size: 0.9rem;
+            color: var(--slate);
+            line-height: 1.6;
+            margin-bottom: 1.25rem;
+        }
+
+        .partner-link {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--accent);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: gap 0.3s ease;
+        }
+
+        .partner-link:hover {
+            gap: 0.75rem;
+        }
+
+        /* Pre-Transaction */
+        .pre-transaction {
+            background: var(--white);
+        }
+
+        /* During Transaction */
+        .during-transaction {
+            background: var(--off-white);
+        }
+
+        /* Post-Transaction */
+        .post-transaction {
+            background: var(--white);
+        }
+
+        /* CTA Section */
+        .cta {
+            background: var(--navy);
+            color: var(--white);
+            text-align: center;
+            padding: 5rem 4rem;
+        }
+
+        .cta h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(1.75rem, 3vw, 2.25rem);
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .cta p {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.7);
+            max-width: 500px;
+            margin: 0 auto 2rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn-white {
+            background: var(--white);
+            color: var(--navy);
+        }
+
+        .btn-white:hover {
+            background: var(--off-white);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem 4rem;
+            background: var(--navy);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-logo {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--white);
+        }
+
+        footer p {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .footer-parent {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .footer-parent a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+        }
+
+        .footer-parent a:hover {
+            color: var(--white);
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            nav {
+                padding: 1.25rem 2rem;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--white);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1.5rem;
+                border-bottom: 1px solid var(--silver);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            section {
+                padding: 4rem 2rem;
+            }
+
+            .hero {
+                padding: 8rem 2rem 4rem;
+            }
+
+            .stage-nav {
+                padding: 1.5rem 2rem;
+            }
+
+            footer {
+                padding: 2rem;
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .hero h1 {
+                font-size: 1.75rem;
+            }
+
+            .partner-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stage-nav {
+                flex-direction: column;
+            }
+
+            .stage-btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="#" class="logo">sos13</a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#pre">Pre-Transaction</a></li>
+            <li><a href="#during">During Transaction</a></li>
+            <li><a href="#post">Post-Transaction</a></li>
+        </ul>
+        <a href="#contact" class="nav-cta">Become a Partner</a>
+        <button class="mobile-menu-btn" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <span class="hero-tag">Trusted Partners</span>
+            <h1>Resources for every stage of your business transaction</h1>
+            <p>Vetted partners to help you prepare, execute, and transition smoothly—before, during, and after the sale.</p>
+        </div>
+    </section>
+
+    <div class="stage-nav">
+        <a href="#pre" class="stage-btn pre">Pre-Transaction</a>
+        <a href="#during" class="stage-btn during">During Transaction</a>
+        <a href="#post" class="stage-btn post">Post-Transaction</a>
+    </div>
+
+    <section class="pre-transaction" id="pre">
+        <div class="section-header">
+            <p class="section-tag pre">Pre-Transaction</p>
+            <h2>Get Your Business Ready</h2>
+            <p>Partners who help you clean up, organize, and position your business for maximum value.</p>
+        </div>
+        <div class="partner-grid">
+            <div class="partner-card">
+                <span class="partner-category">Bookkeeping & Accounting</span>
+                <h3>Financial Cleanup Services</h3>
+                <p>Get your books in order. Clean financials mean faster due diligence and better offers.</p>
+                <a href="#" class="partner-link">View partners →</a>
+            </div>
+            <div class="partner-card">
+                <span class="partner-category">Valuation</span>
+                <h3>Business Valuation</h3>
+                <p>Know what your business is worth before you go to market. Certified valuations and broker opinions.</p>
+                <a href="#" class="partner-link">View partners →</a>
+            </div>
+            <div class="partner-card">
+                <span class="partner-category">Coaching</span>
+                <h3>Exit Planning Coaches</h3>
+                <p>Strategic guidance on timing, positioning, and personal readiness for your exit.</p>
+                <a href="#" class="partner-link">View partners →</a>
+            </div>
+            <div class="partner-card">
+                <span class="partner-category">Operations</span>
+                <h3>Systems & SOPs</h3>
+                <p>Document your processes. Buyers pay more for businesses that run without the owner.</p>
+                <a href="#" class="partner-link">View partners →</a>
+            </div>
+            <div class="partner-card">
+                <span class="partner-category">Legal</span>
+                <h3>Corporate Cleanup</h3>
+                <p>Resolve entity issues, contracts, and compliance gaps before they become deal killers.</p>
+                <a href="#" class="partner-link">View partners →</a>
+            </div>
+            <div class="partner-card">
+                <span class="partner-category">Tax Planning</span>
+                <h3>Pre-Sale Tax Strategy</h3>
+                <p>Structure the sale to minimize tax burden. Planning now saves significantly at close.</p>
+                <a href="#" class="partner-link">View partners →</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="during-transaction" id="during">
+        <div class="section-header">
+            <p class="section-tag during">During Transaction</p>
+            <h2>Execute the Deal</h2>
+            <p>Partners who help you navigate the transaction itself—from LOI to close.</p>
+        </div>
+        <div class="partner-grid">
+            <div class="partner-card">
+                <span class="partner-category">Legal</span>
+                <h3>M&A Attorneys</h3>
+                <p>Transaction counsel who specialize in business sales. Protect your interests through close.</p>
+                <a href="#" class="partner-link">View partners →</a>
+            </div>
+            <div class="partner-card">
+                <span class="partner-category">Financing</span>
+                <h3>SBA Lenders</h3>
+                <p>Lenders who specialize in SBA 7(a) loans for business acquisitions. Pre-qualified buyers close faster.</p>
+                <a href="#" class="partner-link">View partners →</a>
+            </div>
+            <div class="partner-card">
+                <span class="partner-category">Escrow</span>
+                <h3>Escrow Services</h3>
+                <p>Secure handling of deposits, earnest money, and closing funds.</p>
+                <a href="#" class="partner-link">View partners →</a>
+            </div>
+            <div class="partner-card">
+                <span class="partner-category">Due Diligence</span>
+                <h3>Quality of Earnings</h3>
+                <p>Financial due diligence that satisfies buyers and lenders. Avoid surprises.</p>
+                <a href="#" class="partner-link">View partners →</a>
+            </div>
+            <div class="partner-card">
+                <span class="partner-category">Insurance</span>
+                <h3>Rep & Warranty Insurance</h3>
+                <p>Transfer risk from seller to insurer. Cleaner deals, faster closes.</p>
+                <a href="#" class="partner-link">View partners →</a>
+            </div>
+            <div class="partner-card">
+                <span class="partner-category">Consulting</span>
+                <h3>Integration Planning</h3>
+                <p>Help buyers plan the transition before close. Reduces post-sale friction.</p>
+                <a href="#" class="partner-link">View partners →</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="post-transaction" id="post">
+        <div class="section-header">
+            <p class="section-tag post">Post-Transaction</p>
+            <h2>After the Close</h2>
+            <p>Partners who help you manage the proceeds and transition to what's next.</p>
+        </div>
+        <div class="partner-grid">
+            <div class="partner-card">
+                <span class="partner-category">Wealth Management</span>
+                <h3>Wealth Advisors</h3>
+                <p>Manage your liquidity event. Investment strategy for business owners post-exit.</p>
+                <a href="#" class="partner-link">View partners →</a>
+            </div>
+            <div class="partner-card">
+                <span class="partner-category">Tax</span>
+                <h3>Post-Sale Tax Planning</h3>
+                <p>Installment sales, charitable strategies, and ongoing tax optimization.</p>
+                <a href="#" class="partner-link">View partners →</a>
+            </div>
+            <div class="partner-card">
+                <span class="partner-category">Transition</span>
+                <h3>Seller Transition Support</h3>
+                <p>Navigate the handoff period. Training, consulting, and earnout management.</p>
+                <a href="#" class="partner-link">View partners →</a>
+            </div>
+            <div class="partner-card">
+                <span class="partner-category">Coaching</span>
+                <h3>What's Next Coaching</h3>
+                <p>Identity after exit. Many sellers struggle with purpose post-sale. Get support.</p>
+                <a href="#" class="partner-link">View partners →</a>
+            </div>
+            <div class="partner-card">
+                <span class="partner-category">Legal</span>
+                <h3>Estate Planning</h3>
+                <p>Protect and transfer your new wealth. Trusts, succession, and legacy planning.</p>
+                <a href="#" class="partner-link">View partners →</a>
+            </div>
+            <div class="partner-card">
+                <span class="partner-category">Reinvestment</span>
+                <h3>Search Funds & Acquisitions</h3>
+                <p>Ready to buy your next business? Connect with deal flow and capital partners.</p>
+                <a href="#" class="partner-link">View partners →</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta" id="contact">
+        <h2>Become a Partner</h2>
+        <p>We work with best-in-class service providers across the transaction lifecycle. If you serve business buyers or sellers, let's talk.</p>
+        <a href="mailto:partners@sos13.com" class="btn btn-white">Partner Inquiries →</a>
+    </section>
+
+    <footer>
+        <div class="footer-logo">sos13</div>
+        <p class="footer-parent">A <a href="https://sosvl.com">sosvl</a> property</p>
+        <p>© 2026 sos13. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('active');
+        }
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                    document.getElementById('navLinks').classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
